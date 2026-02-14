@@ -1,5 +1,6 @@
 module main
 
+import kutlayozger.chalk
 import frothy7650.vircc
 import term.ui as tui
 import os
@@ -67,7 +68,11 @@ fn event(e &tui.Event, x voidptr) {
         exit(0)
       }
       
-      if app.conn.channel != "" { if !app.input_buf.trim_space().starts_with("/") { app.messages << "<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}" } }
+      if app.conn.channel != "" {
+        if !app.input_buf.trim_space().starts_with("/") {
+          app.messages << chalk.green("<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}")
+        }
+      }
       app.input_buf = ""
       app.autoscroll = true
     }
