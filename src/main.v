@@ -60,7 +60,6 @@ fn event(e &tui.Event, x voidptr) {
         app.input_buf = ""
         return
       }
-
       app.conn.writeline(app.input_buf) or {}
 
       // if /quit, vircc already sets is_running = false
@@ -68,7 +67,7 @@ fn event(e &tui.Event, x voidptr) {
         exit(0)
       }
       
-      if !app.input_buf.trim_space().starts_with("/") { app.messages << "<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}" }
+      if app.conn.channel != "" { if !app.input_buf.trim_space().starts_with("/") { app.messages << "<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}" } }
       app.input_buf = ""
       app.autoscroll = true
     }

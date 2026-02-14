@@ -1,5 +1,5 @@
 DEBUGFLAGS := -os linux -g -showcc -show-c-output -cc clang -keepc
-VFLAGS := -os linux -cc clang -prod -cflags "-Wall -Wextra -Wshadow -Wformat=2 -Wconversion -Wfloat-equal -O2"
+VFLAGS := -os linux -cc clang -prod -cflags "-Wall -Wextra -Wshadow -Wformat=2 -Wconversion -Wfloat-equal -O2" -showcc
 WINVFLAGS := -os windows -cc clang -prod -cflags "-Wall -Wextra -Wshadow -Wformat=2 -Wconversion -Wfloat-equal -O2"
 BIN := chat-tui
 OUTPUT := ./build/$(BIN)
@@ -15,7 +15,7 @@ check:
 install: release
 	install -Dm755 $(OUTPUT) /usr/bin/$(BIN)
 clean:
-	rm -rf build/*
+	rm -rf build/
 windows: clean
 	mkdir -p build/
 	v $(WINVFLAGS) src/. -o $(OUTPUT)
