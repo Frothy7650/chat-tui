@@ -67,7 +67,8 @@ fn event(e &tui.Event, x voidptr) {
       if !app.conn.is_running {
         exit(0)
       }
-
+      
+      if !app.input_buf.trim_space().starts_with("/") { app.messages << "<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}" }
       app.input_buf = ""
       app.autoscroll = true
     }
@@ -101,8 +102,9 @@ fn event(e &tui.Event, x voidptr) {
           app.messages = []string{}
           app.scroll = 0
           app.input_buf = ""
+        } else {
+          app.input_buf += e.utf8
         }
-        app.input_buf += e.utf8
       }
     }
   }
