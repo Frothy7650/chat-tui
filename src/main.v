@@ -22,6 +22,7 @@ mut:
 fn start_receiver(mut app App) {
   go fn [mut app]() {
     for app.conn.is_running {
+      app.conn.color = true
       line := app.conn.readline() or { continue }
 
       app.messages << line.trim_space()
@@ -70,7 +71,7 @@ fn event(e &tui.Event, x voidptr) {
       
       if app.conn.channel != "" {
         if !app.input_buf.trim_space().starts_with("/") {
-          app.messages << chalk.green("<${app.conn.nick}:${app.conn.channel}> ${app.input_buf.trim_space()}")
+          app.messages << "<${chalk.cyan(app.conn.nick)}> ${app.input_buf.trim_space()}"
         }
       }
       app.input_buf = ""
@@ -102,10 +103,9 @@ fn event(e &tui.Event, x voidptr) {
 
     else {
       if e.ascii != 0 {
-        if e.utf8 == "~" {
+        if e.ascii == 12 {
           app.messages = []string{}
           app.scroll = 0
-          app.input_buf = ""
         } else {
           app.input_buf += e.utf8
         }
