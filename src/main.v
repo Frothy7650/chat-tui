@@ -71,7 +71,7 @@ fn event(e &tui.Event, x voidptr) {
       
       if app.conn.channel != "" {
         if !app.input_buf.trim_space().starts_with("/") {
-          app.messages << "<${chalk.cyan(app.conn.nick)}> ${app.input_buf.trim_space()}"
+          app.messages << chalk.bold("<${chalk.cyan(app.conn.nick)}> ${app.input_buf.trim_space()}")
         }
       }
       app.input_buf = ""
