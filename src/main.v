@@ -198,7 +198,7 @@ fn main() {
   ip := os.input("Enter server IP: ")
   nick := os.input("Enter nickname: ")
 
-  mut conn := vircc.connect(ip, "6667", nick)
+  mut conn := vircc.connect(ip, "6667", nick)!
   conn.login()!
 
   mut app := &App{
